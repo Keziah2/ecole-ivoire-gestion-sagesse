@@ -5,7 +5,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Schools from "./pages/Schools";
 import Pedagogy from "./pages/Pedagogy";
@@ -26,17 +30,63 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <div className="min-h-screen bg-gray-50">
-            <Navigation />
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/schools" element={<Schools />} />
-              <Route path="/pedagogy" element={<Pedagogy />} />
-              <Route path="/staff" element={<Staff />} />
-              <Route path="/finance" element={<Finance />} />
-              <Route path="/parents" element={<Parents />} />
-              <Route path="/communication" element={<Communication />} />
-              <Route path="/reports" element={<Reports />} />
+              <Route path="/" element={<><Navigation /><Index /></>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/users" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Users />
+                </ProtectedRoute>
+              } />
+              <Route path="/schools" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Schools />
+                </ProtectedRoute>
+              } />
+              <Route path="/pedagogy" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Pedagogy />
+                </ProtectedRoute>
+              } />
+              <Route path="/staff" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Staff />
+                </ProtectedRoute>
+              } />
+              <Route path="/finance" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Finance />
+                </ProtectedRoute>
+              } />
+              <Route path="/parents" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Parents />
+                </ProtectedRoute>
+              } />
+              <Route path="/communication" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Communication />
+                </ProtectedRoute>
+              } />
+              <Route path="/reports" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Reports />
+                </ProtectedRoute>
+              } />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

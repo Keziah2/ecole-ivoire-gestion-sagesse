@@ -2,6 +2,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 import { 
   Users, 
   GraduationCap, 
@@ -16,6 +18,8 @@ import {
 } from "lucide-react";
 
 const Index = () => {
+  const { user } = useAuth();
+
   const modules = [
     {
       title: "Gestion des Utilisateurs",
@@ -91,26 +95,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-r from-blue-600 to-green-600 p-2 rounded-lg">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">SIGES</h1>
-                <p className="text-sm text-gray-600">Système Intégré de Gestion Scolaire</p>
-              </div>
-            </div>
-            <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700">
-              Connexion
-            </Button>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -121,7 +105,7 @@ const Index = () => {
             Plateforme numérique complète pour centraliser et automatiser la gestion administrative, 
             pédagogique et financière de votre groupe scolaire en Côte d'Ivoire.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 mb-8">
             <span className="flex items-center gap-1">
               <CreditCard className="w-4 h-4" />
               Paiements Mobile Money
@@ -135,6 +119,27 @@ const Index = () => {
               Multi-établissements
             </span>
           </div>
+          
+          {user ? (
+            <Link to="/dashboard">
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700">
+                Accéder au tableau de bord
+              </Button>
+            </Link>
+          ) : (
+            <div className="flex gap-4 justify-center">
+              <Link to="/login">
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700">
+                  Se connecter
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button size="lg" variant="outline">
+                  Créer un compte
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
