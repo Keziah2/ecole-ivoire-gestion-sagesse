@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,13 +23,20 @@ interface EstablishmentFormProps {
 }
 
 const EstablishmentForm = ({ establishment, onSuccess, onCancel }: EstablishmentFormProps) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    code: string;
+    address: string;
+    phone: string;
+    email: string;
+    status: 'active' | 'inactive' | 'suspended';
+  }>({
     name: '',
     code: '',
     address: '',
     phone: '',
     email: '',
-    status: 'active' as 'active' | 'inactive' | 'suspended'
+    status: 'active'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
