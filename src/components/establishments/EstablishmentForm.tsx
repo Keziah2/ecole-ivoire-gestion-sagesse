@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,7 +31,7 @@ const EstablishmentForm = ({ establishment, onSuccess, onCancel }: Establishment
     address: '',
     phone: '',
     email: '',
-    status: 'active' as const
+    status: 'active' as 'active' | 'inactive' | 'suspended'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
