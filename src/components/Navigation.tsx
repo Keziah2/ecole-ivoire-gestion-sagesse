@@ -15,7 +15,8 @@ import {
   UserCheck,
   Menu,
   X,
-  LogOut
+  LogOut,
+  Calendar
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -31,10 +32,11 @@ const Navigation = () => {
     { name: "Accueil", href: "/", icon: Shield },
     { name: "Utilisateurs", href: "/users", icon: Users },
     { name: "Établissements", href: "/schools", icon: School },
+    { name: "Niveaux d'Éducation", href: "/education-levels", icon: BookOpen },
     { name: "Pédagogie", href: "/pedagogy", icon: GraduationCap },
     { name: "Personnel", href: "/staff", icon: UserCheck },
     { name: "Finances", href: "/finance", icon: DollarSign },
-    { name: "Portail Parents", href: "/parents", icon: BookOpen },
+    { name: "Portail Parents", href: "/parents", icon: Calendar },
     { name: "Communication", href: "/communication", icon: MessageSquare },
     { name: "Rapports", href: "/reports", icon: BarChart3 }
   ];
@@ -69,7 +71,7 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           {user && (
             <div className="hidden lg:flex items-center space-x-1">
-              {navigationItems.slice(1, 6).map((item) => {
+              {navigationItems.slice(1, 7).map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link

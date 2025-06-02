@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Schools from "./pages/Schools";
+import EducationLevels from "./pages/EducationLevels";
 import Pedagogy from "./pages/Pedagogy";
 import Staff from "./pages/Staff";
 import Finance from "./pages/Finance";
@@ -49,6 +50,12 @@ const App = () => {
                 <ProtectedRoute>
                   <Navigation />
                   <Schools />
+                </ProtectedRoute>
+              } />
+              <Route path="/education-levels" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <EducationLevels />
                 </ProtectedRoute>
               } />
               <Route path="/pedagogy" element={
