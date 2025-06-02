@@ -1,12 +1,11 @@
+
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import EstablishmentFormHeader from "./EstablishmentFormHeader";
+import EstablishmentFormFields from "./EstablishmentFormFields";
+import EstablishmentFormActions from "./EstablishmentFormActions";
 
 interface Establishment {
   id: string;
@@ -106,20 +105,10 @@ const EstablishmentForm = ({ establishment, onSuccess, onCancel }: Establishment
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="sm" onClick={onCancel}>
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Retour
-        </Button>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">
-            {establishment ? 'Modifier l\'établissement' : 'Nouvel établissement'}
-          </h2>
-          <p className="text-gray-600">
-            {establishment ? 'Modifiez les informations de l\'établissement' : 'Créez un nouvel établissement pour le groupe scolaire'}
-          </p>
-        </div>
-      </div>
+      <EstablishmentFormHeader 
+        isEditing={!!establishment} 
+        onCancel={onCancel} 
+      />
 
       <Card>
         <CardHeader>
@@ -127,83 +116,16 @@ const EstablishmentForm = ({ establishment, onSuccess, onCancel }: Establishment
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nom de l'établissement *</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder="Ex: École Primaire Sainte-Marie"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="code">Code de l'établissement *</Label>
-                <Input
-                  id="code"
-                  value={formData.code}
-                  onChange={(e) => handleInputChange('code', e.target.value)}
-                  placeholder="Ex: EPSM001"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="phone">Téléphone</Label>
-                <Input
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="Ex: +225 27 22 XX XX XX"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder="Ex: contact@ecole.ci"
-                />
-              </div>
-
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="address">Adresse</Label>
-                <Input
-                  id="address"
-                  value={formData.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
-                  placeholder="Ex: Cocody, Riviera 3, Rue des Jardins"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="status">Statut</Label>
-                <Select value={formData.status} onValueChange={(value) => handleInputChange('status', value)}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Actif</SelectItem>
-                    <SelectItem value="inactive">Inactif</SelectItem>
-                    <SelectItem value="suspended">Suspendu</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="flex gap-3 pt-6 border-t">
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Sauvegarde...' : (establishment ? 'Modifier' : 'Créer')}
-              </Button>
-              <Button type="button" variant="outline" onClick={onCancel}>
-                Annuler
-              </Button>
-            </div>
+            <EstablishmentFormFields 
+              formData={formData}
+              onInputChange={handleInputChange}
+            />
+            
+            <EstablishmentFormActions 
+              isSubmitting={isSubmitting}
+              isEditing={!!establishment}
+              onCancel={onCancel}
+            />
           </form>
         </CardContent>
       </Card>
